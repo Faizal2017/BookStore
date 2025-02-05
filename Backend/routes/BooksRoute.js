@@ -1,40 +1,17 @@
 import express from "express";
 import { Book } from "../models/Books.js";
+import { CreateBook } from "../controllers/bookCon.js";
+
 
 const router = express.Router();
-
-router.post('/',async(request,response)=>{
-    try{
-        if(
-            !request.body.title ||
-            !request.body.author ||
-            !request.body.publishyear
-        ){
-            return response.status(400).send({ message: "send all required data"})
-        }
-
-        const newBook = {
-            title: request.body.title,
-            author : request.body.author,
-            publishyear:request.body.publishyear
-        }
-
-        const book = await Book.create(newBook)
-        return response.status(201).send(book);
-        
-    }
-    catch(error){
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+router.post('/',CreateBook);
 
 // to get all books
 router.get('/',async (request,response)=>{
  
      try{
         const books = await Book.find({})
-        return response.status(200).json("books")
+        return response.status(200).json(books)
 
      }
      catch(error){

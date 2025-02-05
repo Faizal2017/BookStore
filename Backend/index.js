@@ -4,11 +4,13 @@ import mongoose from "mongoose";
 import BooksRoute from "./routes/BooksRoute.js";
 import cors from "cors";
 
+
 const app = express();
+app.use(express.json());
 
 //cors policy
 app.use(cors({
-    origin: 'http://localhost:5000',
+    origin: 'http://localhost:5000/',
     methods:['GET','POST','PUT','DELETE'],
     allowedHeaders:['Content-Type'],
 }))
@@ -19,7 +21,6 @@ app.get("/",(request,response)=>{
 })
 //Book route
 app.use('/books',BooksRoute)
-app.use(express.json());
 //Riute to save new book
 
 //to connect mongoDB 
